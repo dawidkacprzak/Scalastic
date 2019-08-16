@@ -46,5 +46,12 @@ namespace Scalastic
             }
             return true;
         }
+
+        public List<T> GetListOfT<T>(string endpoint)
+        {
+            var response = client.Execute(new RestRequest("/_cat/"+endpoint+"?format=json", Method.GET));
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<T>>(response.Content);
+
+        }
     }
 }

@@ -13,8 +13,13 @@ namespace Scalastic
     {
         static void Main(string[] args)
         {
-            Controller.Init(new Uri("http://localhost:9200"));
-            Console.WriteLine(Controller.IsConnected().ToString());
+            Controller.Instance.Init(new Uri("http://localhost:9200"));
+            Console.WriteLine(Controller.Instance.IsConnected().ToString());
+            var data = Controller.Instance.GetListOfT<CatIndices>("");
+            foreach (var item in data)
+            {
+                Console.WriteLine(item.Index);
+            }
             Console.ReadKey();
         }
     }
