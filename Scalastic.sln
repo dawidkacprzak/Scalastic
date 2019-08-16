@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalastic", "Scalastic\Scalastic.csproj", "{45511550-3DEA-48DD-BA2A-02FC0D420878}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C3848D0-1D3B-4E74-9C96-482AF725DCBB}
+	EndGlobalSection
+EndGlobal
