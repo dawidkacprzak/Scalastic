@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalastic", "Scalastic\Scalastic.csproj", "{45511550-3DEA-48DD-BA2A-02FC0D420878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCL", "SCL\SCL.csproj", "{098D2462-F014-48C3-9CD4-E6875A46B652}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D4ED8B50-274F-422B-88D9-92F8C3801D29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45511550-3DEA-48DD-BA2A-02FC0D420878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098D2462-F014-48C3-9CD4-E6875A46B652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098D2462-F014-48C3-9CD4-E6875A46B652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098D2462-F014-48C3-9CD4-E6875A46B652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098D2462-F014-48C3-9CD4-E6875A46B652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4ED8B50-274F-422B-88D9-92F8C3801D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4ED8B50-274F-422B-88D9-92F8C3801D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4ED8B50-274F-422B-88D9-92F8C3801D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4ED8B50-274F-422B-88D9-92F8C3801D29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

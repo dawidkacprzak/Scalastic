@@ -1,0 +1,9 @@
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/bin/Debug/netcoreapp2.2/SCL.deps.json
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/bin/Debug/netcoreapp2.2/SCL.dll
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/bin/Debug/netcoreapp2.2/SCL.pdb
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.csprojAssemblyReference.cache
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.csproj.CoreCompileInputs.cache
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.AssemblyInfoInputs.cache
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.AssemblyInfo.cs
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.dll
+/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.pdb

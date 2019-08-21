@@ -13,4 +13,13 @@
     <PackageReference Include="RestSharp" Version="106.6.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SCL\SCL.csproj" />
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\CatIndices.cs" />
+    <Compile Remove="Models\CatShards.cs" />
+    <Compile Remove="Controller.cs" />
+  </ItemGroup>
 </Project>
