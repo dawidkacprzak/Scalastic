@@ -1,3 +1,6 @@
+using System;
+using Elasticsearch.Net;
+
 namespace DAL
 {
     public sealed class ElasticController
@@ -14,8 +17,14 @@ namespace DAL
                 return instance;
             }
         }
-        private ElasticController() { }
+        private ElasticController() {
+            var settings = new ConnectionConfiguration(new Uri("http://10.10.1.214:9200"))
+                .RequestTimeout(TimeSpan.FromMinutes(2));
+
+            var lowlevelClient = new ElasticLowLevelClient(settings);
+        }
         #endregion
+
         
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
-using DAL.Model;
-namespace DAL
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-
+using DAL.Models;
+namespace DAL {
+    class Program {
+        static void Main (string[] args) {
+            Console.WriteLine (ElasticController.Instance);
         }
     }
 }
