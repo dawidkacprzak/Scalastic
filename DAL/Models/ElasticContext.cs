@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DAL.Model
+namespace DAL.Models
 {
     public partial class ElasticContext : DbContext
     {
@@ -16,13 +16,14 @@ namespace DAL.Model
         }
 
         public virtual DbSet<Queries> Queries { get; set; }
+        public virtual DbSet<TempUsers> TempUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("server=51.254.205.149;user=rekurencja;password=Hermetyzacj4!;database=Elastic");
+                optionsBuilder.UseSqlServer("Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!");
             }
         }
 
@@ -38,6 +39,26 @@ namespace DAL.Model
 
                 entity.Property(e => e.Query)
                     .IsRequired()
+                    .HasColumnType("text");
+            });
+
+            modelBuilder.Entity<TempUsers>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BirthDate).HasColumnType("date");
+
+                entity.Property(e => e.Login)
+                    .IsRequired()
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.PasswordMd5)
+                    .HasColumnName("Password_md5")
                     .HasColumnType("text");
             });
         }

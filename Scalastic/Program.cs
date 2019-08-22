@@ -13,10 +13,6 @@ namespace Scalastic
     {
         static void Main(string[] args)
         {
-            List<int> lista = new List<int>(){
-                1,2,4,5,6,7,3,4,6,353,25,1,1,32,5,526
-            };
-
             while(true){
                 Console.WriteLine("1. Zobacz wszystkie zapytania");
                 Console.WriteLine("2. Dodaj ");

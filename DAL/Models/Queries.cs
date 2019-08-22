@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.Model
+namespace DAL.Models
 {
     public partial class Queries
     {
