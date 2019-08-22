@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
-namespace DAL.Models
-{
-    public partial class TempUsers
-    {
+using Nest;
+namespace DAL.Models {
+    public partial class TempUsers {
         public int Id { get; set; }
         public string Login { get; set; }
         public string PasswordMd5 { get; set; }

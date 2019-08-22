@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "cb5bdb16bd998f1d6eed729dc1f7a61829911c94"
+    "signature": "1bdfb1abcc70762f3e8bb26213dcd6fbcb473c81"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,7 +11,8 @@
           "Elasticsearch.Net": "7.2.0",
           "Microsoft.EntityFrameworkCore": "2.2.6",
           "Microsoft.EntityFrameworkCore.Design": "2.2.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
+          "NEST": "7.2.0"
         },
         "runtime": {
           "DAL.dll": {}
@@ -232,6 +233,17 @@
           "runtime/win/lib/_._": {
             "rid": "win",
             "assetType": "runtime"
+          }
+        }
+      },
+      "NEST/7.2.0": {
+        "dependencies": {
+          "Elasticsearch.Net": "7.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nest.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.0.0"
           }
         }
       },
@@ -678,6 +690,13 @@
       "sha512": "sha512-+FWlwd//+Tt56316p00hVePBCouXyEzT86Jb3+AuRotTND0IYn0OO3obs1gnQEs/txEnt+rF2JBGLItTG+Be6A==",
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
+    },
+    "NEST/7.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G80rtK8NAUPCSXhIdKeUkVVJEp2UBxE/+NtiQJrVOq6hKbFXy7sx6x9EkZaJURVvmko5XFaJoJOaevzAsW9gXQ==",
+      "path": "nest/7.2.0",
+      "hashPath": "nest.7.2.0.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",

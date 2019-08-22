@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "NEST": {
+              "target": "Package",
+              "version": "[7.2.0, )"
             }
           },
           "imports": [

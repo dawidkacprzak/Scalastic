@@ -448,6 +448,18 @@
           }
         }
       },
+      "NEST/7.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Elasticsearch.Net": "[7.2.0, 8.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Nest.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nest.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -1649,6 +1661,22 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "NEST/7.2.0": {
+      "sha512": "G80rtK8NAUPCSXhIdKeUkVVJEp2UBxE/+NtiQJrVOq6hKbFXy7sx6x9EkZaJURVvmko5XFaJoJOaevzAsW9gXQ==",
+      "type": "package",
+      "path": "nest/7.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Nest.dll",
+        "lib/net461/Nest.xml",
+        "lib/netstandard2.0/Nest.dll",
+        "lib/netstandard2.0/Nest.xml",
+        "license.txt",
+        "nest.7.2.0.nupkg.sha512",
+        "nest.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -3675,7 +3703,8 @@
       "Microsoft.EntityFrameworkCore >= 2.2.6",
       "Microsoft.EntityFrameworkCore.Design >= 2.2.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.2.6",
-      "Microsoft.NETCore.App >= 2.2.0"
+      "Microsoft.NETCore.App >= 2.2.0",
+      "NEST >= 7.2.0"
     ]
   },
   "packageFolders": {
@@ -3738,6 +3767,10 @@
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "NEST": {
+            "target": "Package",
+            "version": "[7.2.0, )"
           }
         },
         "imports": [
