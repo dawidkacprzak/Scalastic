@@ -45,7 +45,7 @@ namespace DAL {
 
         private int maximumInstancesOfThreadsForCompleteQuery = 0;
         int startedThreads = 0;
-        public void StartImportToElastic(string indexName,string query, string queryWithWhereID,string countQuery)
+        public void StartImportToElastic(string indexName,string queryWithWhereID,string countQuery)
         {
             int queryResultCount = GetQueryRowCount(countQuery);
             int threadCount;
@@ -95,7 +95,6 @@ namespace DAL {
 
             if (currentValue <= maximumInstancesOfThreadsForCompleteQuery)
             {
-                Console.WriteLine("start");
                 BulkQuery(indexName, queryWithWhereID, currentValue, forceNewTask);
             }
         }
@@ -123,33 +122,32 @@ namespace DAL {
                         list.Add(example);
                     }
 
-                        var waitHandle = new CountdownEvent(1);
+                    var waitHandle = new CountdownEvent(1);
 
-                        var bulkAll = eclient.BulkAll(list, b => b
-                            .Index(indexName)
-                            .BackOffRetries(2)
-                            .BackOffTime("30s")
-                            .RefreshOnCompleted(true)
-                            .MaxDegreeOfParallelism(4)
-                            .Size(paginationSize)
-                        );
+                    var bulkAll = eclient.BulkAll(list, b => b
+                        .Index(indexName)
+                        .BackOffRetries(2)
+                        .BackOffTime("30s")
+                        .RefreshOnCompleted(true)
+                        .MaxDegreeOfParallelism(4)
+                        .Size(paginationSize)
+                    );
 
-                        bulkAll.Subscribe(new BulkAllObserver(
-                            onNext: (b) =>
-                            {
-                                fetchedDocs += b.Items.Count();
-                                Console.WriteLine("SUCCESS  " + fetchedDocs);
-                            },
-                            onError: (e) => { Console.WriteLine("bulkFailed"); throw e; },
-                            onCompleted: () => { waitHandle.Signal(); }
-                        ));
-
-                        waitHandle.Wait();
-                        if (forceNewTask)
+                    bulkAll.Subscribe(new BulkAllObserver(
+                        onNext: (b) =>
                         {
-                            con.Close();
-                            CallbackTask(indexName, pageCount, query, false, true);
-                        }
+                            fetchedDocs += b.Items.Count();
+                        },
+                        onError: (e) => { Console.WriteLine("bulkFailed"); throw e; },
+                        onCompleted: () => { waitHandle.Signal(); }
+                    ));
+
+                    waitHandle.Wait();
+                    if (forceNewTask)
+                    {
+                        con.Close();
+                        CallbackTask(indexName, pageCount, query, false, true);
+                    }
                     
                 }
                 catch (Exception ex)

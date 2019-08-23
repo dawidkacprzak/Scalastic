@@ -35,16 +35,24 @@ namespace DAL.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.CountQuery)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.IndexName)
+                    .IsRequired()
+                    .HasColumnType("text");
+
                 entity.Property(e => e.MinutePeriod).HasDefaultValueSql("((10))");
 
-                entity.Property(e => e.Query)
+                entity.Property(e => e.WhereQuery)
                     .IsRequired()
                     .HasColumnType("text");
             });
 
             modelBuilder.Entity<TempUsers>(entity =>
             {
-                entity.Property(e => e.ID).HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.BirthDate).HasColumnType("date");
 
