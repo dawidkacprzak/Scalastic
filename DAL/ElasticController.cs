@@ -16,6 +16,7 @@ namespace DAL {
         #region singleton
         private static object lockPad = new object();        
         private ElasticClient eclient;
+        private const int paginationSize = 2000;
         private string connectionString = "Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!";
         private static ElasticController instance;
         public static ElasticController Instance
@@ -32,14 +33,13 @@ namespace DAL {
         }
         private ElasticController()
         {
-            var settings = new ConnectionSettings(new Uri("http://localhost:9200")).DefaultIndex("tempusers");
+            var settings = new ConnectionSettings(new Uri("http://localhost:9200"));
             eclient = new ElasticClient(settings);
         }
         #endregion
         
-        public void StartImportToElastic(string query, string queryWithWhereID)
+        public void StartImportToElastic(string indexName,string query, string queryWithWhereID,string countQuery)
         {
-            string countQuery = "select count(*) " + query.Substring(query.IndexOf("from"));
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand countCommand = new SqlCommand(countQuery, con);
@@ -49,7 +49,7 @@ namespace DAL {
             if (count == 0) return;
             else
             {
-                decimal div = (decimal)(count / 700.0);
+                decimal div = (decimal)(((decimal)count) / paginationSize);
                 threadCount = Decimal.ToInt32(Math.Ceiling(div));
             }
 
@@ -58,7 +58,7 @@ namespace DAL {
                 for (int i = 0; i < threadCount; i++)
                 {
                     int c = i;
-                    CallbackTask(c, queryWithWhereID,true, false);
+                    CallbackTask(indexName,c, queryWithWhereID,true, false);
                 }
             }
             else
@@ -70,16 +70,16 @@ namespace DAL {
                 for (int i = 0; i < 5; i++)
                 {
                     int c = i;
-                    CallbackTask(c, queryWithWhereID,true, true);
+                    CallbackTask(indexName,c, queryWithWhereID,true, true);
                 }
             }
             con.Close();
         }
 
-        private int threadLimit;
+        private int threadLimit = 0;
         int startedThreads = 0;
 
-        async void CallbackTask(int page, string queryWithWhereID,bool initCallback, bool forceNewTask)
+        private async void CallbackTask(string indexName,int page, string queryWithWhereID,bool initCallback, bool forceNewTask)
         {
             int reserved = startedThreads++;
             int currentValue;
@@ -92,17 +92,17 @@ namespace DAL {
 
             await Task.Run(() =>
             {
-                Thread myNewThread = new Thread(new ThreadStart(() => GetData(queryWithWhereID, currentValue, forceNewTask)));
+                Thread myNewThread = new Thread(new ThreadStart(() => BulkQuery(indexName,queryWithWhereID, currentValue, forceNewTask)));
                 myNewThread.Start(); 
             });
         }
-        private void GetData(string query, int pageCount, bool forceNewTask)
+        private void BulkQuery(string indexName,string query, int pageCount, bool forceNewTask)
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             var newquery = query.Clone().ToString();
-            newquery = newquery.Replace("~", ((700 * pageCount)).ToString());
-            newquery = newquery.Replace("§", ((700 * (pageCount + 1))).ToString());
+            newquery = newquery.Replace("~", ((paginationSize * pageCount)).ToString());
+            newquery = newquery.Replace("§", ((paginationSize * (pageCount + 1))).ToString());
             SqlCommand command = new SqlCommand(newquery, con);
             SqlDataReader reader = command.ExecuteReader();
             List<TempUsers> list = new List<TempUsers>();
@@ -119,18 +119,18 @@ namespace DAL {
             BulkDescriptor descriptor = new BulkDescriptor();
             foreach (var item in list)
             {
-                descriptor.Index<TempUsers>(d => d.Document(item));
+                descriptor.Index<TempUsers>(d => d.Document(item).Index(indexName).Id(item.ID));
             }
             var x = eclient.Bulk(descriptor);
             Console.WriteLine("done");
             if (forceNewTask)
             {
-                CallbackTask(pageCount, query, false,true);
+                CallbackTask(indexName,pageCount, query, false,true);
             }
             con.Close();
         }
 
-        private static T DictionaryToObject<T>(IDictionary<string, string> dict) where T : new()
+        private T DictionaryToObject<T>(IDictionary<string, string> dict) where T : new()
         {
             var t = new T();
             PropertyInfo[] properties = t.GetType().GetProperties();
