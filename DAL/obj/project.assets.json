@@ -3708,28 +3708,30 @@
     ]
   },
   "packageFolders": {
-    "/Users/dawidkacprzak/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\dkacprzak\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dawidkacprzak/Desktop/Scalastic/DAL/DAL.csproj",
+      "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "/Users/dawidkacprzak/Desktop/Scalastic/DAL/DAL.csproj",
-      "packagesPath": "/Users/dawidkacprzak/.nuget/packages/",
-      "outputPath": "/Users/dawidkacprzak/Desktop/Scalastic/DAL/obj/",
+      "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/dawidkacprzak/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
