@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using Elasticsearch.Net;
 using Nest;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace DAL {
     public sealed class ElasticController
@@ -16,9 +17,11 @@ namespace DAL {
         #region singleton
         private static object lockPad = new object();        
         private ElasticClient eclient;
-        private const int paginationSize = 2000;
-        private string connectionString = "Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!";
+        private const int paginationSize = 10000;
+        private const int maxThreadRunCount = 8;
+        private string connectionString = "Data Source=mssqlcluster2.oponeo.local;Initial Catalog=PRODUKTY;Integrated Security=True";
         private static ElasticController instance;
+        List<Task> tasks = new List<Task>();
         public static ElasticController Instance
         {
             get
@@ -37,97 +40,150 @@ namespace DAL {
             eclient = new ElasticClient(settings);
         }
         #endregion
-        
+
+        int fetchedDocs = 0;
+
+        private int maximumInstancesOfThreadsForCompleteQuery = 0;
+        int startedThreads = 0;
         public void StartImportToElastic(string indexName,string query, string queryWithWhereID,string countQuery)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            SqlCommand countCommand = new SqlCommand(countQuery, con);
-            int count = (int)countCommand.ExecuteScalar();
+            int queryResultCount = GetQueryRowCount(countQuery);
+            int threadCount;
+            if (queryResultCount > 0)
+                threadCount = decimal.ToInt32(Math.Ceiling(((decimal)queryResultCount) / paginationSize));
+            else return;
 
-            int threadCount = 0;
-            if (count == 0) return;
-            else
-            {
-                decimal div = (decimal)(((decimal)count) / paginationSize);
-                threadCount = Decimal.ToInt32(Math.Ceiling(div));
-            }
-
-            if (threadCount < 5)
+            if (threadCount < maxThreadRunCount)
             {
                 for (int i = 0; i < threadCount; i++)
                 {
                     int c = i;
-                    CallbackTask(indexName,c, queryWithWhereID,true, false);
+                    CallbackTask(indexName, c, queryWithWhereID, true, false);
+                    Thread.Sleep(2000);
                 }
             }
             else
             {
-                threadLimit = threadCount;
-                for (int i = 0; i < 5;i++){
-                    startedThreads++;
-                }
-                for (int i = 0; i < 5; i++)
+                maximumInstancesOfThreadsForCompleteQuery = threadCount;
+                startedThreads = maxThreadRunCount - 1;
+
+                for (int i = 0; i <= maxThreadRunCount; i++)
                 {
                     int c = i;
-                    CallbackTask(indexName,c, queryWithWhereID,true, true);
+                    Task t = new Task(()=>CallbackTask(indexName, c, queryWithWhereID, true, true));
+                    tasks.Add(t);
                 }
             }
-            con.Close();
+
+            foreach (var item in tasks)
+                item.Start();
+
+            Task.WaitAll(tasks.ToArray());
         }
 
-        private int threadLimit = 0;
-        int startedThreads = 0;
-
-        private async void CallbackTask(string indexName,int page, string queryWithWhereID,bool initCallback, bool forceNewTask)
+        private void CallbackTask(string indexName, int page, string queryWithWhereID, bool isRootTask, bool forceNewTask)
         {
-            int reserved = startedThreads++;
-            int currentValue;
-            if(initCallback){
+            int reserved = 0;
+            int currentValue = 0;
+
+            if (!isRootTask)
+                reserved = ++startedThreads;
+            if (isRootTask)
                 currentValue = page;
-            }else { 
-                currentValue = reserved; 
-                if(currentValue>threadLimit) return;
-            }
+            else
+                currentValue = reserved;
 
-            await Task.Run(() =>
+            if (currentValue <= maximumInstancesOfThreadsForCompleteQuery)
             {
-                Thread myNewThread = new Thread(new ThreadStart(() => BulkQuery(indexName,queryWithWhereID, currentValue, forceNewTask)));
-                myNewThread.Start(); 
-            });
+                Console.WriteLine("start");
+                BulkQuery(indexName, queryWithWhereID, currentValue, forceNewTask);
+            }
         }
-        private void BulkQuery(string indexName,string query, int pageCount, bool forceNewTask)
+
+        private void BulkQuery(string indexName, string query, int pageCount, bool forceNewTask)
         {
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            var newquery = query.Clone().ToString();
-            newquery = newquery.Replace("~", ((paginationSize * pageCount)).ToString());
-            newquery = newquery.Replace("§", ((paginationSize * (pageCount + 1))).ToString());
-            SqlCommand command = new SqlCommand(newquery, con);
-            SqlDataReader reader = command.ExecuteReader();
-            List<TempUsers> list = new List<TempUsers>();
-            while (reader.Read())
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-                for (int i = 0; i < reader.FieldCount; i++)
+                con.Open();
+                try
                 {
-                    dic.Add(reader.GetName(i), reader.GetValue(i).ToString());
+                    string searchQuery = PreparePaginationQuery(query.Clone().ToString(), pageCount);
+                    Console.WriteLine(searchQuery);
+                    SqlCommand command = new SqlCommand(searchQuery, con);
+                    SqlDataReader reader = command.ExecuteReader();
+                    List<MrkZamowienie> list = new List<MrkZamowienie>();
+                    while (reader.Read())
+                    {
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            dic.Add(reader.GetName(i), reader.GetValue(i).ToString());
+                        }
+                        MrkZamowienie example = DictionaryToObject<MrkZamowienie>(dic);
+                        list.Add(example);
+                    }
+
+                        var waitHandle = new CountdownEvent(1);
+
+                        var bulkAll = eclient.BulkAll(list, b => b
+                            .Index(indexName)
+                            .BackOffRetries(2)
+                            .BackOffTime("30s")
+                            .RefreshOnCompleted(true)
+                            .MaxDegreeOfParallelism(4)
+                            .Size(paginationSize)
+                        );
+
+                        bulkAll.Subscribe(new BulkAllObserver(
+                            onNext: (b) =>
+                            {
+                                fetchedDocs += b.Items.Count();
+                                Console.WriteLine("SUCCESS  " + fetchedDocs);
+                            },
+                            onError: (e) => { Console.WriteLine("bulkFailed"); throw e; },
+                            onCompleted: () => { waitHandle.Signal(); }
+                        ));
+
+                        waitHandle.Wait();
+                        if (forceNewTask)
+                        {
+                            con.Close();
+                            CallbackTask(indexName, pageCount, query, false, true);
+                        }
+                    
                 }
-                TempUsers example = DictionaryToObject<TempUsers>(dic);
-                list.Add(example);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Thread.Sleep(5000);
+                    BulkQuery(indexName, query, pageCount, forceNewTask);
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
-            BulkDescriptor descriptor = new BulkDescriptor();
-            foreach (var item in list)
+        }
+
+        #region helpermethods
+
+        private string PreparePaginationQuery(string query,int page)
+        {
+            query = query.Replace("~", ((paginationSize * page)).ToString());
+            query = query.Replace("§", ((paginationSize * (page + 1))).ToString());
+            return query;
+        }
+
+        private int GetQueryRowCount(string countQuery)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                descriptor.Index<TempUsers>(d => d.Document(item).Index(indexName).Id(item.ID));
+                con.Open();
+                SqlCommand countCommand = new SqlCommand(countQuery, con);
+                int count = (int)countCommand.ExecuteScalar();
+                con.Close();
+                return count;
             }
-            var x = eclient.Bulk(descriptor);
-            Console.WriteLine("done");
-            if (forceNewTask)
-            {
-                CallbackTask(indexName,pageCount, query, false,true);
-            }
-            con.Close();
         }
 
         private T DictionaryToObject<T>(IDictionary<string, string> dict) where T : new()
@@ -147,5 +203,6 @@ namespace DAL {
             }
             return t;
         }
+        #endregion
     }
 }

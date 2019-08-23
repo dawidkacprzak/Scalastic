@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj": {}
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj": {}
   },
   "projects": {
-    "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj": {
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj",
+        "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj",
         "projectName": "SCL",
-        "projectPath": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj",
-        "packagesPath": "/Users/dawidkacprzak/.nuget/packages/",
-        "outputPath": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/",
+        "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj",
+        "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/dawidkacprzak/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
