@@ -44,7 +44,7 @@ namespace DAL.Models
 
             modelBuilder.Entity<TempUsers>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.ID).HasColumnName("ID");
 
                 entity.Property(e => e.BirthDate).HasColumnType("date");
 

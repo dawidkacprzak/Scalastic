@@ -3,15 +3,16 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="DAL/Program.cs">
     <Files>
       <File FileName="SCL/Class1.cs" Line="1" Column="1" />
-      <File FileName="SCL/Models/Queries.cs" Line="8" Column="1" />
+      <File FileName="SCL/Models/Queries.cs" />
       <File FileName="DAL/Program.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Scalastic" expanded="True">
-            <Node name="DAL" expanded="True" selected="True">
+            <Node name="DAL" expanded="True">
               <Node name="Dependencies" expanded="True" />
+              <Node name="Program.cs" selected="True" />
             </Node>
             <Node name="Scalastic" expanded="True" />
             <Node name="SCL" expanded="True" />
