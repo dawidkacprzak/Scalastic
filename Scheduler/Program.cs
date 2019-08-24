@@ -19,7 +19,7 @@ namespace Scheduler
             RunProgramRunExample().GetAwaiter().GetResult();
             while (true)
             {
-                Thread.Sleep(10000);
+                Thread.Sleep(50000);
             }
         }
 
