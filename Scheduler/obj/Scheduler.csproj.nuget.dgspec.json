@@ -1,0 +1,136 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj": {}
+  },
+  "projects": {
+    "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj",
+        "packagesPath": "/Users/rekurencja/.nuget/packages/",
+        "outputPath": "/Users/rekurencja/Desktop/Scalastic/DAL/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Elasticsearch.net": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "NEST": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj",
+        "projectName": "Scheduler",
+        "projectPath": "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj",
+        "packagesPath": "/Users/rekurencja/.nuget/packages/",
+        "outputPath": "/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj": {
+                "projectPath": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.0.7, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

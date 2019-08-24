@@ -18,8 +18,8 @@ namespace DAL {
         private static object lockPad = new object();        
         private ElasticClient eclient;
         private const int paginationSize = 10000;
-        private const int maxThreadRunCount = 8;
-        private string connectionString = "Data Source=mssqlcluster2.oponeo.local;Initial Catalog=PRODUKTY;Integrated Security=True";
+        private const int maxThreadRunCount = 4;
+        private string connectionString = "Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!";
         private static ElasticController instance;
         List<Task> tasks = new List<Task>();
         public static ElasticController Instance
@@ -42,13 +42,21 @@ namespace DAL {
         #endregion
 
         int fetchedDocs = 0;
-
         private int maximumInstancesOfThreadsForCompleteQuery = 0;
         int startedThreads = 0;
+
         public void StartImportToElastic(string indexName,string queryWithWhereID,string countQuery)
         {
+            ClearSession();
+            if(!eclient.Ping().IsValid)
+            {
+                Console.WriteLine("Blad podczas pingowania elastic'a - sprawdz polaczenie z serwerem i czy przypadkiem polaczenie nie jest blokowane.");
+                return;
+            }
             int queryResultCount = GetQueryRowCount(countQuery);
             int threadCount;
+
+            startedThreads = 0;
             if (queryResultCount > 0)
                 threadCount = decimal.ToInt32(Math.Ceiling(((decimal)queryResultCount) / paginationSize));
             else return;
@@ -79,6 +87,7 @@ namespace DAL {
                 item.Start();
 
             Task.WaitAll(tasks.ToArray());
+            Console.WriteLine("Zakonczono migracje");
         }
 
         private void CallbackTask(string indexName, int page, string queryWithWhereID, bool isRootTask, bool forceNewTask)
@@ -139,7 +148,9 @@ namespace DAL {
                             fetchedDocs += b.Items.Count();
                         },
                         onError: (e) => { Console.WriteLine("bulkFailed"); throw e; },
-                        onCompleted: () => { waitHandle.Signal(); }
+                        onCompleted: () => { waitHandle.Signal();
+                            Console.WriteLine("Łacznie znaleziono: " + fetchedDocs + " elementow");
+                        }
                     ));
 
                     waitHandle.Wait();
@@ -170,6 +181,13 @@ namespace DAL {
             query = query.Replace("~", ((paginationSize * page)).ToString());
             query = query.Replace("§", ((paginationSize * (page + 1))).ToString());
             return query;
+        }
+
+        private void ClearSession(){
+            startedThreads = 0;
+            tasks.Clear();
+            fetchedDocs = 0;
+            maximumInstancesOfThreadsForCompleteQuery = 0;
         }
 
         private int GetQueryRowCount(string countQuery)

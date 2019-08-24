@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DAL.Models
 {
-    public partial class ElasticContext : DbContext
+    public class ElasticContext : DbContext
     {
         public ElasticContext()
         {

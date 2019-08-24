@@ -1,30 +1,31 @@
 ﻿<Properties StartupConfiguration="{45511550-3DEA-48DD-BA2A-02FC0D420878}|Default">
   <MonoDevelop.Ide.ItemProperties.Scalastic PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DAL/Program.cs">
+  <MonoDevelop.Ide.ItemProperties.Scheduler PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DAL/ElasticController.cs">
     <Files>
-      <File FileName="SCL/Class1.cs" Line="1" Column="1" />
-      <File FileName="SCL/Models/Queries.cs" />
-      <File FileName="DAL/Program.cs" Line="1" Column="1" />
+      <File FileName="DAL/Models/MrkZamowienie.cs" Line="11" Column="6" />
+      <File FileName="DAL/Models/ElasticContext.cs" Line="7" Column="11" />
+      <File FileName="Scheduler/Program.cs" Line="75" Column="55" />
+      <File FileName="DAL/ElasticController.cs" Line="48" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Scalastic" expanded="True">
             <Node name="DAL" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="ElasticController.cs" selected="True" />
             </Node>
             <Node name="Scalastic" expanded="True" />
+            <Node name="Scheduler" expanded="True" />
             <Node name="SCL" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.DAL FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.SCL FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

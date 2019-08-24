@@ -1,0 +1,14 @@
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/Scheduler.deps.json
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/Scheduler.runtimeconfig.json
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/Scheduler.runtimeconfig.dev.json
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/Scheduler.dll
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/Scheduler.pdb
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.csprojAssemblyReference.cache
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.csproj.CoreCompileInputs.cache
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.AssemblyInfoInputs.cache
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.AssemblyInfo.cs
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.dll
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.pdb
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/DAL.dll
+/Users/rekurencja/Desktop/Scalastic/Scheduler/bin/Debug/netcoreapp2.2/DAL.pdb
+/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.csproj.CopyComplete

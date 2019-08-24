@@ -32,8 +32,6 @@ namespace Scalastic
                         }
                         break;
                     case 2:
-                        using (var ctx = new ElasticContext())
-                        {
                             int minutePeriod;
                             string CountQuery, IndexName, WhereQuery;
                             bool Active;
@@ -48,19 +46,18 @@ namespace Scalastic
                             if (z == 1) Active = true; else Active = false;
                             Console.WriteLine("Podaj czas w minutach (bez liter) co ile zapytanie ma sie wykonywac");
                             minutePeriod = int.Parse(Console.ReadLine());
-
-                            ctx.Queries.Add(new Queries()
+                            using (var ctx = new ElasticContext())
                             {
-                                Active = Active ? (byte)0x1 : (byte)0x0,
-                                CountQuery = CountQuery,
-                                WhereQuery = WhereQuery,
-                                IndexName = IndexName,
-                                MinutePeriod = minutePeriod
-                            });
-
-                            ctx.SaveChanges();
-
-                        }
+                                ctx.Queries.Add(new Queries()
+                                {
+                                    Active = Active ? (byte)0x1 : (byte)0x0,
+                                    CountQuery = CountQuery,
+                                    WhereQuery = WhereQuery,
+                                    IndexName = IndexName,
+                                    MinutePeriod = minutePeriod
+                                });
+                                ctx.SaveChanges();
+                            }
                         break;
                     case 3:
                         using (var ctx = new ElasticContext())
@@ -77,7 +74,8 @@ namespace Scalastic
                         }
                         break;
                 }
-            }
+                Console.ReadKey();
+                Console.Clear();
         }
     }
 }
