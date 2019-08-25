@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj": {}
+    "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj": {}
   },
   "projects": {
-    "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj": {
+    "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj",
+        "projectUniqueName": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj",
         "projectName": "SCL",
-        "projectPath": "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj",
-        "packagesPath": "/Users/rekurencja/.nuget/packages/",
-        "outputPath": "/Users/rekurencja/Desktop/Scalastic/SCL/obj/",
+        "projectPath": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/SCL.csproj",
+        "packagesPath": "/Users/dawidkacprzak/.nuget/packages/",
+        "outputPath": "/Users/dawidkacprzak/Desktop/Scalastic/SCL/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+          "/Users/dawidkacprzak/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"

@@ -10,6 +10,7 @@ using Elasticsearch.Net;
 using Nest;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace DAL {
     public sealed class ElasticController
@@ -119,19 +120,20 @@ namespace DAL {
                     Console.WriteLine(searchQuery);
                     SqlCommand command = new SqlCommand(searchQuery, con);
                     SqlDataReader reader = command.ExecuteReader();
-                    List<MrkZamowienie> list = new List<MrkZamowienie>();
+                    List<Dictionary<string,object>> list = new List<Dictionary<string,object>>();
+                    
                     while (reader.Read())
                     {
-                        Dictionary<string, string> dic = new Dictionary<string, string>();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            dic.Add(reader.GetName(i), reader.GetValue(i).ToString());
+                            list.Add(new Dictionary<string,object>(){
+                                {reader.GetName(i), reader.GetValue(i)}
+                            });
                         }
-                        MrkZamowienie example = DictionaryToObject<MrkZamowienie>(dic);
-                        list.Add(example);
                     }
-
+       
                     var waitHandle = new CountdownEvent(1);
+                    var descriptor = new BulkDescriptor();
 
                     var bulkAll = eclient.BulkAll(list, b => b
                         .Index(indexName)
@@ -154,6 +156,7 @@ namespace DAL {
                     ));
 
                     waitHandle.Wait();
+
                     if (forceNewTask)
                     {
                         con.Close();
