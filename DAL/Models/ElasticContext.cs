@@ -16,7 +16,6 @@ namespace DAL.Models
         }
 
         public virtual DbSet<Queries> Queries { get; set; }
-        public virtual DbSet<TempUsers> TempUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -50,25 +49,6 @@ namespace DAL.Models
                     .HasColumnType("text");
             });
 
-            modelBuilder.Entity<TempUsers>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.BirthDate).HasColumnType("date");
-
-                entity.Property(e => e.Login)
-                    .IsRequired()
-                    .HasMaxLength(60)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("text");
-
-                entity.Property(e => e.PasswordMd5)
-                    .HasColumnName("Password_md5")
-                    .HasColumnType("text");
-            });
         }
     }
 }
