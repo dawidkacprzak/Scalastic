@@ -14,23 +14,40 @@ namespace Scheduler
 {
     class Program
     {
-       private static void Main(string[] args)
+        static List<Queries> scheduledTasks;
+
+        private static void Main(string[] args)
         {
-            RunProgramRunExample().GetAwaiter().GetResult();
+            scheduledTasks = new List<Queries>();
+            Scheduler().GetAwaiter().GetResult();
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(5000);
+                    var copyTasks = (Queries[])scheduledTasks.ToArray().Clone();
+                    scheduledTasks.Clear();
+                    Console.WriteLine("Wyczyszczono kolejke taskow. Znaleziono: " + copyTasks.Count());
+                    foreach (var item in copyTasks)
+                    {
+                        Console.WriteLine("Rozpoczeto import zapytania: " + item.WhereQuery);
+                        ElasticController.Instance.StartImportToElastic(item.IndexName, item.WhereQuery, item.CountQuery);
+                    }
+                }
+            });
             while (true)
             {
-                Thread.Sleep(50000);
+                Thread.Sleep(5000);
             }
         }
-
-        private static async Task RunProgramRunExample()
+        private static async Task Scheduler()
         {
             try
             {
                 NameValueCollection props = new NameValueCollection
                 {
                     { "quartz.serializer.type", "binary" },
-                    { "quartz.threadPool.threadCount", "1" }
+                    { "quartz.threadPool.threadCount", "20" }
                 };
                 StdSchedulerFactory factory = new StdSchedulerFactory(props);
                 IScheduler scheduler = await factory.GetScheduler();
@@ -41,16 +58,18 @@ namespace Scheduler
                     list = ctx.Queries.Where(x => x.Active == 1).ToList();
                     foreach (var item in list)
                     {
-                        IJobDetail job = JobBuilder.Create<QueryJob>()
-                            .Build();
+                        IJobDetail job = JobBuilder.Create<AddQueryToQueueJob>().
+                           WithIdentity(item.Id.ToString())
+                           .Build();
                         job.JobDataMap["query"] = item;
 
+
                         ITrigger trigger = TriggerBuilder.Create()
-                            .StartNow()
-                            .WithSimpleSchedule(x => x
-                                .WithIntervalInMinutes(item.MinutePeriod)
-                                .RepeatForever()).StartNow()
-                            .Build();
+
+                        .WithIdentity(item.Id.ToString())
+                        .WithSimpleSchedule(x => x.WithIntervalInMinutes(item.MinutePeriod).RepeatForever())
+                        .Build();
+                        Console.WriteLine("Dodano: " + item.CountQuery);
                         await scheduler.ScheduleJob(job, trigger);
                     }
                 }
@@ -62,15 +81,16 @@ namespace Scheduler
             }
         }
 
-        public class QueryJob : IJob
+        public class AddQueryToQueueJob : IJob
         {
 
             public async Task Execute(IJobExecutionContext context)
             {
                 JobDataMap dataMap = context.JobDetail.JobDataMap;
                 Queries query = (Queries)dataMap.Get("query");
-                Console.WriteLine("Zaczeto task z zapytaniem:\n"+query.WhereQuery);
-                ElasticController.Instance.StartImportToElastic(query.IndexName,query.WhereQuery,query.CountQuery);
+                Console.WriteLine("Dodano do listy zapytanie: "+query.WhereQuery);
+                scheduledTasks.Add(query);
+                return;
             }
         }
     }

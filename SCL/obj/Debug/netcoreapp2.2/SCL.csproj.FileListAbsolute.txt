@@ -16,11 +16,3 @@
 /Users/rekurencja/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.AssemblyInfo.cs
 /Users/rekurencja/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.dll
 /Users/rekurencja/Desktop/Scalastic/SCL/obj/Debug/netcoreapp2.2/SCL.pdb
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\bin\Debug\netcoreapp2.2\SCL.deps.json
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\bin\Debug\netcoreapp2.2\SCL.dll
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\bin\Debug\netcoreapp2.2\SCL.pdb
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\obj\Debug\netcoreapp2.2\SCL.csproj.CoreCompileInputs.cache
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\obj\Debug\netcoreapp2.2\SCL.AssemblyInfoInputs.cache
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\obj\Debug\netcoreapp2.2\SCL.AssemblyInfo.cs
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\obj\Debug\netcoreapp2.2\SCL.dll
-C:\Users\dkacprzak\Desktop\ElasticProject\SCL\obj\Debug\netcoreapp2.2\SCL.pdb

@@ -120,7 +120,6 @@ namespace DAL {
                 try
                 {
                     string searchQuery = PreparePaginationQuery(query.Clone().ToString(), pageCount);
-                    Console.WriteLine(searchQuery);
                     using (SqlCommand command = new SqlCommand(searchQuery, con))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
