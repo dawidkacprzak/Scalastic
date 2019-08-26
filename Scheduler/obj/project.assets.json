@@ -5912,35 +5912,37 @@
     ]
   },
   "packageFolders": {
-    "/Users/dawidkacprzak/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\dkacprzak\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dawidkacprzak/Desktop/Scalastic/Scheduler/Scheduler.csproj",
+      "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\Scheduler.csproj",
       "projectName": "Scheduler",
-      "projectPath": "/Users/dawidkacprzak/Desktop/Scalastic/Scheduler/Scheduler.csproj",
-      "packagesPath": "/Users/dawidkacprzak/.nuget/packages/",
-      "outputPath": "/Users/dawidkacprzak/Desktop/Scalastic/Scheduler/obj/",
+      "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\Scheduler.csproj",
+      "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/dawidkacprzak/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "/Users/dawidkacprzak/Desktop/Scalastic/DAL/DAL.csproj": {
-              "projectPath": "/Users/dawidkacprzak/Desktop/Scalastic/DAL/DAL.csproj"
+            "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj"
             }
           }
         }

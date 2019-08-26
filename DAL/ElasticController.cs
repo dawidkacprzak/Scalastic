@@ -20,7 +20,7 @@ namespace DAL {
         private ElasticClient eclient;
         private const int paginationSize = 10000;
         private const int maxThreadRunCount = 4;
-        private string connectionString = "Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!";
+        private string connectionString = "Data Source=mssqlcluster2.oponeo.local;Initial Catalog=PRODUKTY;Integrated Security=True";
         private static ElasticController instance;
         List<Task> tasks = new List<Task>();
         public static ElasticController Instance
@@ -42,7 +42,6 @@ namespace DAL {
         }
         #endregion
 
-        int fetchedDocs = 0;
         private int maximumInstancesOfThreadsForCompleteQuery = 0;
         int startedThreads = 0;
 
@@ -89,6 +88,7 @@ namespace DAL {
 
             Task.WaitAll(tasks.ToArray());
             Console.WriteLine("Zakonczono migracje");
+            GC.Collect();
         }
 
         private void CallbackTask(string indexName, int page, string queryWithWhereID, bool isRootTask, bool forceNewTask)
@@ -111,6 +111,9 @@ namespace DAL {
 
         private void BulkQuery(string indexName, string query, int pageCount, bool forceNewTask)
         {
+            BulkDescriptor descriptor = new BulkDescriptor();
+            int indexedCount = 0;
+            bool successFlag = true;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
@@ -118,61 +121,57 @@ namespace DAL {
                 {
                     string searchQuery = PreparePaginationQuery(query.Clone().ToString(), pageCount);
                     Console.WriteLine(searchQuery);
-                    SqlCommand command = new SqlCommand(searchQuery, con);
-                    SqlDataReader reader = command.ExecuteReader();
-                    List<Dictionary<string,object>> list = new List<Dictionary<string,object>>();
-                    
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(searchQuery, con))
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            list.Add(new Dictionary<string,object>(){
-                                {reader.GetName(i), reader.GetValue(i)}
-                            });
+                            while (reader.Read())
+                            {
+                                Dictionary<string, object> temp = new Dictionary<string, object>();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    temp.Add(reader.GetName(i), reader.GetValue(i));
+                                }
+                                indexedCount++;
+                                descriptor.Index<Dictionary<string, object>>(op => op
+                                .Document(temp)
+                                .Index(indexName)
+                                .Id(temp["ID"].ToString()));
+                            }
                         }
                     }
-       
-                    var waitHandle = new CountdownEvent(1);
-                    var descriptor = new BulkDescriptor();
-
-                    var bulkAll = eclient.BulkAll(list, b => b
-                        .Index(indexName)
-                        .BackOffRetries(2)
-                        .BackOffTime("30s")
-                        .RefreshOnCompleted(true)
-                        .MaxDegreeOfParallelism(4)
-                        .Size(paginationSize)
-                    );
-
-                    bulkAll.Subscribe(new BulkAllObserver(
-                        onNext: (b) =>
-                        {
-                            fetchedDocs += b.Items.Count();
-                        },
-                        onError: (e) => { Console.WriteLine("bulkFailed"); throw e; },
-                        onCompleted: () => { waitHandle.Signal();
-                            Console.WriteLine("Łacznie znaleziono: " + fetchedDocs + " elementow");
-                        }
-                    ));
-
-                    waitHandle.Wait();
-
-                    if (forceNewTask)
-                    {
-                        con.Close();
-                        CallbackTask(indexName, pageCount, query, false, true);
-                    }
-                    
                 }
                 catch (Exception ex)
                 {
+                    successFlag = false;
                     Console.WriteLine(ex.Message);
                     Thread.Sleep(5000);
                     BulkQuery(indexName, query, pageCount, forceNewTask);
                 }
                 finally
                 {
-                    con.Close();
+                    if (successFlag)
+                    {
+                        if (indexedCount > 0)
+                        {
+                            var waitHandle = new CountdownEvent(1);
+                            var bulkAll = eclient.Bulk(descriptor);
+                            waitHandle.Signal();
+                            if (bulkAll.IsValid)
+                            {
+                                Console.WriteLine("Polecenie bulk zakonczone pomyslnie, zaimportowano kolejne " + bulkAll.Items.Count + " wierszy");
+                            }
+                            else
+                            {
+                                Console.WriteLine(bulkAll.OriginalException);
+                            }
+                        }
+                        if (forceNewTask)
+                        {
+                            con.Close();
+                            CallbackTask(indexName, pageCount, query, false, true);
+                        }
+                    }
                 }
             }
         }
@@ -189,7 +188,6 @@ namespace DAL {
         private void ClearSession(){
             startedThreads = 0;
             tasks.Clear();
-            fetchedDocs = 0;
             maximumInstancesOfThreadsForCompleteQuery = 0;
         }
 
@@ -200,7 +198,6 @@ namespace DAL {
                 con.Open();
                 SqlCommand countCommand = new SqlCommand(countQuery, con);
                 int count = (int)countCommand.ExecuteScalar();
-                con.Close();
                 return count;
             }
         }
