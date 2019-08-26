@@ -2939,11 +2939,12 @@
       ]
     },
     "System.ComponentModel.TypeConverter/4.3.0": {
-      "sha512": "HZiP0DwTHJ+C+rdFqP47nBYUh5283kcwXIGY2zOVVhsJmVI/2tYiX2zNRdjRQRHsTox58Ydkec6h0pWSh8wAsw==",
+      "sha512": "16pQ6P+EdhcXzPiEK4kbA953Fu0MNG2ovxTZU81/qsCd1zPRsKc3uif5NgvllCY598k6bI0KUyKW8fanlfaDQg==",
       "type": "package",
       "path": "system.componentmodel.typeconverter/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5871,35 +5872,37 @@
     ]
   },
   "packageFolders": {
-    "/Users/rekurencja/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\dkacprzak\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj",
+      "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\Scheduler.csproj",
       "projectName": "Scheduler",
-      "projectPath": "/Users/rekurencja/Desktop/Scalastic/Scheduler/Scheduler.csproj",
-      "packagesPath": "/Users/rekurencja/.nuget/packages/",
-      "outputPath": "/Users/rekurencja/Desktop/Scalastic/Scheduler/obj/",
+      "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\Scheduler.csproj",
+      "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scheduler\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/rekurencja/.config/NuGet/NuGet.Config"
+        "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj": {
-              "projectPath": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj"
+            "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj"
             }
           }
         }

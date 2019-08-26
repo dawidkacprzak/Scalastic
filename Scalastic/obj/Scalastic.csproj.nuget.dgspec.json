@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rekurencja/Desktop/Scalastic/Scalastic/Scalastic.csproj": {}
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scalastic\\Scalastic.csproj": {}
   },
   "projects": {
-    "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj": {
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj",
+        "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj",
-        "packagesPath": "/Users/rekurencja/.nuget/packages/",
-        "outputPath": "/Users/rekurencja/Desktop/Scalastic/DAL/obj/",
+        "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+          "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,35 +76,37 @@
         }
       }
     },
-    "/Users/rekurencja/Desktop/Scalastic/Scalastic/Scalastic.csproj": {
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scalastic\\Scalastic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/Scalastic/Scalastic.csproj",
+        "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scalastic\\Scalastic.csproj",
         "projectName": "Scalastic",
-        "projectPath": "/Users/rekurencja/Desktop/Scalastic/Scalastic/Scalastic.csproj",
-        "packagesPath": "/Users/rekurencja/.nuget/packages/",
-        "outputPath": "/Users/rekurencja/Desktop/Scalastic/Scalastic/obj/",
+        "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scalastic\\Scalastic.csproj",
+        "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\Scalastic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+          "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj": {
-                "projectPath": "/Users/rekurencja/Desktop/Scalastic/DAL/DAL.csproj"
+              "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj": {
+                "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\DAL\\DAL.csproj"
               },
-              "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj": {
-                "projectPath": "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj"
+              "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj": {
+                "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj"
               }
             }
           }
@@ -151,25 +155,27 @@
         }
       }
     },
-    "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj": {
+    "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj",
+        "projectUniqueName": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj",
         "projectName": "SCL",
-        "projectPath": "/Users/rekurencja/Desktop/Scalastic/SCL/SCL.csproj",
-        "packagesPath": "/Users/rekurencja/.nuget/packages/",
-        "outputPath": "/Users/rekurencja/Desktop/Scalastic/SCL/obj/",
+        "projectPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\SCL.csproj",
+        "packagesPath": "C:\\Users\\dkacprzak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dkacprzak\\Desktop\\ElasticProject\\SCL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/rekurencja/.config/NuGet/NuGet.Config"
+          "C:\\Users\\dkacprzak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
