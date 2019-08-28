@@ -28,20 +28,18 @@ namespace Scalastic
                         {
                             foreach (var item in ctx.Queries.ToList())
                             {
-                                Console.WriteLine(item.WhereQuery);
+                                Console.WriteLine(item.Query);
                             }
                         }
                         break;
                     case 2:
                         int minutePeriod;
-                        string CountQuery, IndexName, WhereQuery;
+                        string Query, IndexName;
                         bool Active;
                         Console.WriteLine("Podaj nazwe indeksu pod jakim będzie zapisywane zapytanie\n");
                         IndexName = Console.ReadLine().ToLower();
-                        Console.WriteLine("Podaj tresc zapytania ktore zwroci maksymalny indeks zapytania - eg. select max(ID) from X\n");
-                        CountQuery = Console.ReadLine();
-                        Console.WriteLine("Podaj tresc zapytania wraz z klauzulą where dla ID - eg. select ... from X where ID >= ~ and ID <= §\n");
-                        WhereQuery = Console.ReadLine();
+                        Console.WriteLine("Podaj tresc zapytania ktore zrobi tabele cache - select ID,X,Y into ElasticCache.elastic_cache from X\n");
+                        Query = Console.ReadLine();
                         Console.WriteLine("Czy na starcie zapytanie ma byc aktywne? 0/1");
                         int z = int.Parse(Console.ReadLine());
                         if (z == 1) Active = true; else Active = false;
@@ -52,8 +50,7 @@ namespace Scalastic
                             ctx.Queries.Add(new Queries()
                             {
                                 Active = Active ? (byte)0x1 : (byte)0x0,
-                                CountQuery = CountQuery,
-                                WhereQuery = WhereQuery,
+                                Query = Query,
                                 IndexName = IndexName,
                                 MinutePeriod = minutePeriod
                             });
@@ -66,12 +63,12 @@ namespace Scalastic
                             int index = 0;
                             foreach (var item in ctx.Queries.ToList())
                             {
-                                Console.WriteLine(index + " -> " + item.WhereQuery);
+                                Console.WriteLine(index + " -> " + item.Query);
                                 index++;
                             }
                             int w = int.Parse(Console.ReadLine());
                             var query = ctx.Queries.ToList().ElementAt(w);
-                            ElasticController.Instance.StartImportToElastic(query.IndexName, query.WhereQuery, query.CountQuery);
+                            ElasticController.Instance.StartImportToElastic(query.IndexName, query.Query);
                         }
                         break;
                 }

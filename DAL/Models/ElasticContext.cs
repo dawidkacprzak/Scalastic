@@ -34,7 +34,7 @@ namespace DAL.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.CountQuery)
+                entity.Property(e => e.Query)
                     .IsRequired()
                     .HasColumnType("text");
 
@@ -43,10 +43,6 @@ namespace DAL.Models
                     .HasColumnType("text");
 
                 entity.Property(e => e.MinutePeriod).HasDefaultValueSql("((10))");
-
-                entity.Property(e => e.WhereQuery)
-                    .IsRequired()
-                    .HasColumnType("text");
             });
 
         }

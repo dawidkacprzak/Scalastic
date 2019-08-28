@@ -20,7 +20,7 @@ namespace DAL {
         private ElasticClient eclient;
         private const int paginationSize = 10000;
         private const int maxThreadRunCount = 4;
-        private string connectionString = "Data Source=mssqlcluster2.oponeo.local;Initial Catalog=PRODUKTY;Integrated Security=True";
+        private string connectionString = "Data Source=51.254.205.149;Initial Catalog=Elastic;User ID=rekurencja;Password=Hermetyzacj4!";
         private static ElasticController instance;
         List<Task> tasks = new List<Task>();
         public static ElasticController Instance
@@ -45,7 +45,7 @@ namespace DAL {
         private int maximumInstancesOfThreadsForCompleteQuery = 0;
         int startedThreads = 0;
 
-        public void StartImportToElastic(string indexName,string queryWithWhereID,string countQuery)
+        public void StartImportToElastic(string indexName,string query)
         {
             ClearSession();
             if(!eclient.Ping().IsValid)
@@ -53,7 +53,7 @@ namespace DAL {
                 Console.WriteLine("Blad podczas pingowania elastic'a - sprawdz polaczenie z serwerem i czy przypadkiem polaczenie nie jest blokowane.");
                 return;
             }
-            int queryResultCount = GetQueryRowCount(countQuery);
+            int queryResultCount = GetQueryRowCount(query);
             int threadCount;
 
             startedThreads = 0;
@@ -63,11 +63,13 @@ namespace DAL {
 
             if (threadCount < maxThreadRunCount)
             {
+                maximumInstancesOfThreadsForCompleteQuery = threadCount;
+
                 for (int i = 0; i < threadCount; i++)
                 {
                     int c = i;
-                    CallbackTask(indexName, c, queryWithWhereID, true, false);
-                    Thread.Sleep(2000);
+                    Task t = new Task(() => CallbackTask(indexName, c, true, false));
+                    tasks.Add(t);
                 }
             }
             else
@@ -78,7 +80,7 @@ namespace DAL {
                 for (int i = 0; i <= maxThreadRunCount; i++)
                 {
                     int c = i;
-                    Task t = new Task(()=>CallbackTask(indexName, c, queryWithWhereID, true, true));
+                    Task t = new Task(()=>CallbackTask(indexName, c, true, true));
                     tasks.Add(t);
                 }
             }
@@ -91,7 +93,7 @@ namespace DAL {
             GC.Collect();
         }
 
-        private void CallbackTask(string indexName, int page, string queryWithWhereID, bool isRootTask, bool forceNewTask)
+        private void CallbackTask(string indexName, int page,bool isRootTask, bool forceNewTask)
         {
             int reserved = 0;
             int currentValue = 0;
@@ -105,11 +107,11 @@ namespace DAL {
 
             if (currentValue <= maximumInstancesOfThreadsForCompleteQuery)
             {
-                BulkQuery(indexName, queryWithWhereID, currentValue, forceNewTask);
+                BulkQuery(indexName, currentValue, forceNewTask);
             }
         }
 
-        private void BulkQuery(string indexName, string query, int pageCount, bool forceNewTask)
+        private void BulkQuery(string indexName, int pageCount, bool forceNewTask)
         {
             BulkDescriptor descriptor = new BulkDescriptor();
             int indexedCount = 0;
@@ -119,7 +121,8 @@ namespace DAL {
                 con.Open();
                 try
                 {
-                    string searchQuery = PreparePaginationQuery(query.Clone().ToString(), pageCount);
+                    string searchQuery = PreparePaginationQuery(pageCount);
+                    Console.WriteLine(searchQuery);
                     using (SqlCommand command = new SqlCommand(searchQuery, con))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -129,7 +132,7 @@ namespace DAL {
                                 Dictionary<string, object> temp = new Dictionary<string, object>();
                                 for (int i = 0; i < reader.FieldCount; i++)
                                 {
-                                    temp.Add(reader.GetName(i), reader.GetValue(i));
+                                        temp.Add(reader.GetName(i), reader.GetValue(i));
                                 }
                                 indexedCount++;
                                 descriptor.Index<Dictionary<string, object>>(op => op
@@ -145,7 +148,7 @@ namespace DAL {
                     successFlag = false;
                     Console.WriteLine(ex.Message);
                     Thread.Sleep(5000);
-                    BulkQuery(indexName, query, pageCount, forceNewTask);
+                    BulkQuery(indexName, pageCount, forceNewTask);
                 }
                 finally
                 {
@@ -168,7 +171,7 @@ namespace DAL {
                         if (forceNewTask)
                         {
                             con.Close();
-                            CallbackTask(indexName, pageCount, query, false, true);
+                            CallbackTask(indexName, pageCount, false, true);
                         }
                     }
                 }
@@ -177,11 +180,12 @@ namespace DAL {
 
         #region helpermethods
 
-        private string PreparePaginationQuery(string query,int page)
+        private string PreparePaginationQuery(int page)
         {
-            query = query.Replace("~", ((paginationSize * page)).ToString());
-            query = query.Replace("§", ((paginationSize * (page + 1))).ToString());
-            return query;
+            string q = "Select * from ElasticCache.dbo.cache with (nolock) where ID > ~ AND ID <= §;";
+            q = q.Replace("~", ((paginationSize * page)).ToString());
+            q = q.Replace("§", ((paginationSize * (page + 1))).ToString());
+            return q;
         }
 
         private void ClearSession(){
@@ -195,9 +199,23 @@ namespace DAL {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand countCommand = new SqlCommand(countQuery, con);
-                int count = (int)countCommand.ExecuteScalar();
-                return count;
+                Console.WriteLine("Uruchamianie raportu i tworzenie widoku..");
+                using (SqlCommand drop = new SqlCommand("Drop table if EXISTS ElasticCache.dbo.elastic_cache", con))
+                {
+                    drop.ExecuteNonQuery();
+                    using (SqlCommand countCommand = new SqlCommand(countQuery, con))
+                    {
+                        countCommand.CommandTimeout = 9999;
+                        countCommand.ExecuteNonQuery();
+                        Console.WriteLine("Zakonczono. Przystępowanie do importu danych");
+                        using (SqlCommand command = new SqlCommand("select MAX(ID) from ElasticCache.dbo.cache with (nolock)", con))
+                        {
+                            int count = (int)command.ExecuteScalar();
+                            return count;
+                        }
+
+                    }
+                }
             }
         }
 
