@@ -26,3 +26,17 @@
 /Users/dawidkacprzak/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.csproj.CopyComplete
 /Users/dawidkacprzak/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.dll
 /Users/dawidkacprzak/Desktop/Scalastic/Scheduler/obj/Debug/netcoreapp2.2/Scheduler.pdb
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.csprojAssemblyReference.cache
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.csproj.CoreCompileInputs.cache
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.AssemblyInfoInputs.cache
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.AssemblyInfo.cs
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.dll
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.pdb
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\Scheduler.deps.json
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\Scheduler.runtimeconfig.json
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\Scheduler.runtimeconfig.dev.json
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\Scheduler.dll
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\Scheduler.pdb
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\DAL.dll
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\bin\Debug\netcoreapp2.2\DAL.pdb
+C:\Users\dkacprzak\Desktop\ElasticProject\Scheduler\obj\Debug\netcoreapp2.2\Scheduler.csproj.CopyComplete

@@ -30,8 +30,8 @@ namespace Scheduler
                     Console.WriteLine("Wyczyszczono kolejke taskow. Znaleziono: " + copyTasks.Count());
                     foreach (var item in copyTasks)
                     {
-                        Console.WriteLine("Rozpoczeto import zapytania: " + item.WhereQuery);
-                        ElasticController.Instance.StartImportToElastic(item.IndexName, item.WhereQuery, item.CountQuery);
+                        Console.WriteLine("Rozpoczeto import zapytania: " + item.IndexName);
+                        ElasticController.Instance.StartImportToElastic(item.IndexName, item.Query);
                     }
                 }
             });
@@ -69,7 +69,7 @@ namespace Scheduler
                         .WithIdentity(item.Id.ToString())
                         .WithSimpleSchedule(x => x.WithIntervalInMinutes(item.MinutePeriod).RepeatForever())
                         .Build();
-                        Console.WriteLine("Dodano: " + item.CountQuery);
+                        Console.WriteLine("Dodano: " + item.IndexName);
                         await scheduler.ScheduleJob(job, trigger);
                     }
                 }
@@ -88,7 +88,7 @@ namespace Scheduler
             {
                 JobDataMap dataMap = context.JobDetail.JobDataMap;
                 Queries query = (Queries)dataMap.Get("query");
-                Console.WriteLine("Dodano do listy zapytanie: "+query.WhereQuery);
+                Console.WriteLine("Dodano do listy zapytanie: "+query.IndexName);
                 scheduledTasks.Add(query);
                 return;
             }

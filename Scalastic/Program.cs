@@ -15,6 +15,8 @@ namespace Scalastic
     {
         static void Main(string[] args)
         {
+            using(var ctx = new ElasticContext())
+            {
             while (true)
             {
                 Console.WriteLine("1. Zobacz wszystkie zapytania");
@@ -63,7 +65,7 @@ namespace Scalastic
                             int index = 0;
                             foreach (var item in ctx.Queries.ToList())
                             {
-                                Console.WriteLine(index + " -> " + item.Query);
+                                Console.WriteLine(index + " -> " + item.IndexName);
                                 index++;
                             }
                             int w = int.Parse(Console.ReadLine());
