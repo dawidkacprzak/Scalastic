@@ -15,8 +15,6 @@ namespace Scalastic
     {
         static void Main(string[] args)
         {
-            using(var ctx = new ElasticContext())
-            {
             while (true)
             {
                 Console.WriteLine("1. Zobacz wszystkie zapytania");
