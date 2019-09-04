@@ -1,0 +1,17 @@
+{
+  "name": "elasticroot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Dawid Kacprzak",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.7"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.3.0"
+  }
+}
