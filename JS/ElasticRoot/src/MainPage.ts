@@ -1,12 +1,12 @@
-const { Client, Connection } = require('@elastic/elasticsearch');
-var client;
-var ip;
+const { Client } = require('@elastic/elasticsearch');
+var client : typeof Client;
+var ip : string;
 
-function setStatusBar(text) {
+function setStatusBar(text : string) {
     let statusText = document.getElementById("currentStatus");
     statusText.innerText = text;
 }
-function setConnectionStatus(isOnline) {
+function setConnectionStatus(isOnline : boolean) {
     let statusLabel = document.getElementById("clusterStatusLabel");
     if (isOnline) {
         statusLabel.innerText = "Online";
@@ -18,13 +18,13 @@ function setConnectionStatus(isOnline) {
 }
 
 document.getElementById("connectToClusterButton").addEventListener('click', async () => {
-    document.getElementById("connectToClusterButton").disabled = true;
+    (<HTMLInputElement>document.getElementById("connectToClusterButton")).disabled = true;
     setStatusBar("");
-    ip = document.getElementById("clusterIpInput").value;
+    ip = (<HTMLInputElement>document.getElementById("clusterIpInput")).value;
     var regexRes = /^(http|https):\/\/(([0-9]|[0-9][0-9\-]*[0-9])\.)*([0-9]|[0-9][0-9\-]*[0-9])(:[0-9]+)$/
     if (regexRes.test(ip)) {
         client = new Client({ node: ip, requestTimeout: 500 });
-        await client.ping({ }, (e) => {
+        await client.ping({ }, (e : Error) => {
             if (e) {
                 setStatusBar("Error occurred during pinging elastic cluster");
                 setConnectionStatus(false);
@@ -32,10 +32,10 @@ document.getElementById("connectToClusterButton").addEventListener('click', asyn
                 setStatusBar("Connected to elastic cluster");
                 setConnectionStatus(true);
             }
-            document.getElementById("connectToClusterButton").disabled = false;
+            (<HTMLInputElement>document.getElementById("connectToClusterButton")).disabled = false;
         });
     } else {
         setStatusBar("Bad cluster ip pattern. It should be like : http://ip:port or https://ip:port");
-        document.getElementById("connectToClusterButton").disabled = false;
+        (<HTMLInputElement>document.getElementById("connectToClusterButton")).disabled = false;
     }
 });
