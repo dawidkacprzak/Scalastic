@@ -31,6 +31,7 @@ document.getElementById("connectToClusterButton").addEventListener('click', asyn
             } else {
                 setStatusBar("Connected to elastic cluster");
                 setConnectionStatus(true);
+                test();
             }
             document.getElementById("connectToClusterButton").disabled = false;
         });
@@ -39,3 +40,11 @@ document.getElementById("connectToClusterButton").addEventListener('click', asyn
         document.getElementById("connectToClusterButton").disabled = false;
     }
 });
+
+function test() {
+   // client = new Client();
+    client.cluster.health({}, (e, r) => {
+        console.log(JSON.stringify(r));
+        alert(r.body["cluster_name"])
+    })
+}
