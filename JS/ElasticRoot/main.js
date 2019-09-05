@@ -6,12 +6,12 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            devTools: true
         }
     });
-
+    mainWindow.webContents.openDevTools();
     mainWindow.removeMenu();
-
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
