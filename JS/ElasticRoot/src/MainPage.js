@@ -30,34 +30,49 @@ function runClusterDataSection(){
 function refreshClusterData(){
 
     client.cluster.health({}, (e, r) => {
-        document.querySelector("#clusterDataClusterName").innerHTML = r.body.cluster_name;
-        let status = r.body.status;
+        let responseBody = r.body;
+        document.querySelector("#clusterDataClusterName").innerHTML = responseBody.cluster_name;
+        let status = responseBody.status;
         let statusColor = document.querySelector("#clusterStatusColor");
-        //#region setStatusColorAndMessage
         if(r.statusCode !== 200){
             statusColor.style.backgroundColor = "red";
             statusColor.innerHTML = "ERROR";
         }else{
-        if(status==="green"){
-            statusColor.style.backgroundColor = "green";
-            statusColor.innerHTML = "OK";
-        }else if(status==="yellow"){
-            statusColor.style.backgroundColor = "orange";
-            statusColor.innerHTML = "WARNING";
-        }else{
-            statusColor.style.backgroundColor = "red";
-            statusColor.innerHTML = "ERROR";
+            if (status === "green") {
+                statusColor.style.backgroundColor = "green";
+                statusColor.innerHTML = "OK";
+            } else if (status === "yellow") {
+                statusColor.style.backgroundColor = "orange";
+                statusColor.innerHTML = "WARNING";
+            } else {
+                statusColor.style.backgroundColor = "red";
+                statusColor.innerHTML = "ERROR";
+            }
+            
+            document.querySelector("#clusterDataElasticLogo").addEventListener('click', (e) => {
+                let uwagi = responseBody.unassigned_shards !=- "0" ?
+                    "<br><hr/>Uwagi:<br>Nieprzypisane shardy: " + responseBody.unassigned_shards : "";
+                showToolTip(
+                    "Nazwa klastra: " + responseBody.cluster_name+
+                    "<br>Liczba serwerów: " + responseBody.number_of_nodes+
+                    "<br>Liczba serwerów(dane): " + responseBody.number_of_data_nodes+
+                    "<br><hr/>Aktywne:"+
+                    "<br>Główne shardów: " + responseBody.active_primary_shards+
+                    "<br>Wszystkie shardy: " + responseBody.active_shards
+                    +uwagi,
+                    e.srcElement
+                )
+            })
+
+            let countOfNodes = r.body.number_of_nodes;
+            document.querySelector("#clusterDataNodes").innerHTML = null;
+            for (let i = 0; i < countOfNodes; i++) {
+                let node = document.createElement("img");
+                node.src = "img/node.png";
+                node.classList.add("defaultImageSize");
+                document.querySelector("#clusterDataNodes").appendChild(node);
+            }
         }
-        //#endregion
-        let countOfNodes = r.body.number_of_nodes;
-        document.querySelector("#clusterDataNodes").innerHTML = null;
-        for(let i = 0;i<countOfNodes;i++){
-            let node = document.createElement("img");
-            node.src = "img/node.png";
-            node.classList.add("defaultImageSize");
-            document.querySelector("#clusterDataNodes").appendChild(node);
-        }
-    }
         console.log(JSON.stringify(r));
     })
 
@@ -69,6 +84,18 @@ function refreshClusterData(){
 //#endregion
 
 //#region helperMethods
+function showToolTip(content, element) {
+    let tooltip = document.querySelector("#tooltip");
+    tooltip.style.display = "flex";
+    let clickedElementTopPosition = element.getBoundingClientRect().top
+    let clickedElementHeight = element.clientHeight;
+    let clickedElementWidth = element.clientWidth;
+    let clickedElementLeftPosition = element.getBoundingClientRect().left;
+    tooltip.style.top = clickedElementTopPosition+clickedElementHeight/2 + "px";
+    tooltip.style.left = clickedElementLeftPosition-clickedElementWidth/2 + "px";
+    document.querySelector("#tooltipContent").innerHTML = content;
+}
+
 function hideAllSections(){
     document.querySelectorAll("section").forEach((e)=>{
         e.style.display = "none"
@@ -139,7 +166,10 @@ document.getElementById("connectToClusterButton").addEventListener('click', asyn
     } else {
         setStatusBar("Bad cluster ip pattern. It should be like : http://ip:port or https://ip:port");
         document.getElementById("connectToClusterButton").disabled = false;
-    }
-    
+    } 
 });
+
+document.querySelector("#tooltipCloseSpan").addEventListener('click', (e) => {
+    document.querySelector("#tooltip").style.display = "none";
+})
 //#endregion 

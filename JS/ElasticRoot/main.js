@@ -19,8 +19,6 @@ function createWindow() {
     mainWindow.loadFile("src/MainPage.html");
 }
 
-
-
 app.on('ready', () => {
     createWindow();
 })
