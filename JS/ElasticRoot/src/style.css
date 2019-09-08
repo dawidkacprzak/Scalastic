@@ -153,6 +153,7 @@ hr{
     display:none;
     flex-direction: column;
     border-radius: 10px;
+    min-width: 200px;
 }
 
 #tooltipContent{
