@@ -6,20 +6,23 @@ var clusterDataSectionInterval;
 
 //#region preconfig
 hideAllSections();
-document.querySelectorAll("#menu div").forEach((e)=>{
-    e.addEventListener('click',()=>{
-        if(ip!==undefined && ip!==null){    
-            hideAllSections();
-            uselectAllMenuButtons();
-            e.classList.add('selectedMenu');
-            document.querySelectorAll("#"+e.dataset.section).forEach((e)=>{
-                e.style.display = "block";
-            })
-        }   
-    })
-})
+addMenuClickHandlers();
 //#endregion
 //#region helperMethods
+function addMenuClickHandlers() {
+    document.querySelectorAll("#menu div").forEach((e)=>{
+        e.addEventListener('click',()=>{
+            if(ip!==undefined && ip!==null){    
+                hideAllSections();
+                uselectAllMenuButtons();
+                e.classList.add('selectedMenu');
+                document.querySelectorAll("#"+e.dataset.section).forEach((e)=>{
+                    e.style.display = "block";
+                })
+            }   
+        })
+    })
+}
 function hideAllSections(){
     document.querySelectorAll("section").forEach((e)=>{
         e.style.display = "none"
