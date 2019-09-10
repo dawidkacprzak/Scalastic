@@ -101,6 +101,8 @@ function refreshClusterData(){
                 }
                 console.log(JSON.stringify(ur));
                 document.querySelector("#clusterDataNodes").innerHTML = null;
+                document.querySelector("#configurationNodes").innerHTML = null;
+
                 let nodes = r.body.nodes;
                 var array_nodes = Object.values(nodes);
                 //console.log(JSON.stringify(array_nodes));
@@ -115,42 +117,46 @@ function refreshClusterData(){
                     }
                     return 0;
                 });
-    
-                for (let i = 0; i < array_nodes.length; i++) {
-                    let node = document.createElement("div");
-                    node.innerHTML = HTMLElements.node;
-                    node.style.display = "flex";
-                    node.style.flexDirection = "column";
-                    node.style.alignItems = "center";
-                    node.style.textAlign = "center";
-                    node.style.justifyContent = "center";
-                    node.style.padding = "5px";
-                    node.querySelector("img").src = 'img/node.png';
-                    let paragraphs = node.querySelectorAll("p");
-                    paragraphs.forEach((e) => e.style.margin = "0px")
-                    if (array_nodes[i].roles.includes("master")) {
-                        var crown = document.createElement("p");
-                        crown.style.padding = "0px";
-                        crown.style.height = "25px";
-                        crown.style.margin = "0px";
-                        crown.innerHTML = "👑";
-                        node.prepend(crown)
-                    } else {
-                        var emptyP = document.createElement("p");
-                        emptyP.style.height = "25px";
-                        emptyP.style.padding = "0px";
-                        emptyP.style.margin = "0px";
-                        node.prepend(emptyP)
-                    }
-                    paragraphs[0].innerText = array_nodes[i].name;
-                    paragraphs[1].innerText = array_nodes[i].ip;
-                    setNodeOnClickHandler(node, array_nodes[i]);
-                    document.querySelector("#clusterDataNodes").append(node)
-                }
+                assignNodesInContainer(array_nodes);
+                elsticSSH.assignConfigurationNodesInContainer(array_nodes);
                 resolve();
             })
         })
     });
+
+    function assignNodesInContainer(array_nodes) {
+        for (let i = 0; i < array_nodes.length; i++) {
+            let node = document.createElement("div");
+            node.innerHTML = HTMLElements.node;
+            node.style.display = "flex";
+            node.style.flexDirection = "column";
+            node.style.alignItems = "center";
+            node.style.textAlign = "center";
+            node.style.justifyContent = "center";
+            node.style.padding = "5px";
+            node.querySelector("img").src = 'img/node.png';
+            let paragraphs = node.querySelectorAll("p");
+            paragraphs.forEach((e) => e.style.margin = "0px")
+            if (array_nodes[i].roles.includes("master")) {
+                var crown = document.createElement("p");
+                crown.style.padding = "0px";
+                crown.style.height = "25px";
+                crown.style.margin = "0px";
+                crown.innerHTML = "👑";
+                node.prepend(crown)
+            } else {
+                var emptyP = document.createElement("p");
+                emptyP.style.height = "25px";
+                emptyP.style.padding = "0px";
+                emptyP.style.margin = "0px";
+                node.prepend(emptyP)
+            }
+            paragraphs[0].innerText = array_nodes[i].name;
+            paragraphs[1].innerText = array_nodes[i].ip;
+            setNodeOnClickHandler(node, array_nodes[i]);
+            document.querySelector("#clusterDataNodes").append(node);
+        }
+    }
 
     function setNodeOnClickHandler(node,data) {  
         node.addEventListener('click', (e) => {
