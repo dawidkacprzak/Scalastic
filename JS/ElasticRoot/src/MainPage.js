@@ -12,7 +12,8 @@ addMenuClickHandlers();
 function addMenuClickHandlers() {
     document.querySelectorAll("#menu div").forEach((e)=>{
         e.addEventListener('click',()=>{
-            if(ip!==undefined && ip!==null){    
+            if (ip !== undefined && ip !== null) {    
+                document.querySelector("#tooltip").style.display = "none";
                 hideAllSections();
                 uselectAllMenuButtons();
                 e.classList.add('selectedMenu');

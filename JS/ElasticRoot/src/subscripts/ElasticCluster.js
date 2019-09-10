@@ -18,7 +18,6 @@ module.exports = {
         runClusterDataSection();
     },
     showToolTip: (content, element) => showToolTip(content, element)
-
 }
 
 let statusColor = document.querySelector("#clusterStatusColor");

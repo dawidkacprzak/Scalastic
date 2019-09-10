@@ -12,6 +12,7 @@
     "electron": "^6.0.7"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.3.0"
+    "@elastic/elasticsearch": "^7.3.0",
+    "sequest": "^0.10.0"
   }
 }
