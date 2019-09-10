@@ -101,14 +101,6 @@ hr{
     flex-direction: column;
     text-align: center;
 }
-#clusterDataStatusContainer{
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;   
-    margin-left: auto;
-    margin-right: auto;
-}
 
 #clusterDataNodes{
     display:flex;
@@ -159,6 +151,40 @@ hr{
 #tooltipContent{
     white-space: pre-line;
     word-wrap: break-word;
+}
+
+#configurationMenu{
+    
+}
+
+.configurationManageButton{
+    height: 60px;
+    width: 60px;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.centeredMenu{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;   
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.leftMenuHorizontal{
+    display:flex;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;   
+    float: left;
 }
 
 .closeX{
