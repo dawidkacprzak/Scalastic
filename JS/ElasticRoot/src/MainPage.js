@@ -1,5 +1,6 @@
-const { Client, Connection } = require('@elastic/elasticsearch');
-const elsticCluster = require('./subscripts/ElasticCluster')
+var { Client, Connection } = require('@elastic/elasticsearch');
+const elasticCluster = require('./subscripts/ElasticCluster');
+const elsticSSH = require('./subscripts/ElasticSSH');
 const HTMLElements = require('./subscripts/HTMLElements');
 var client;
 var clusterDataSectionInterval;
@@ -65,10 +66,10 @@ document.getElementById("connectToClusterButton").addEventListener('click', asyn
         await client.ping({ }, (e) => {
             if (e) {
                 setStatusBar("Error occurred during pinging elastic cluster");
-                elsticCluster.setClusterAsDisconnected();
+                elasticCluster.setClusterAsDisconnected();
             } else {
                 setStatusBar("Connected to elastic cluster");
-                elsticCluster.setClusterAsConnected(input_ip);
+                elasticCluster.setClusterAsConnected(input_ip);
             }
             document.getElementById("connectToClusterButton").disabled = false;
         });
