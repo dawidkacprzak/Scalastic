@@ -9,7 +9,7 @@
   "author": "Dawid Kacprzak",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^6.0.7"
+    "electron": "^9.4.0"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.3.0",
