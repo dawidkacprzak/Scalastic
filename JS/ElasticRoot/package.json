@@ -14,6 +14,6 @@
   "dependencies": {
     "@elastic/elasticsearch": "^7.3.0",
     "sequest": "^0.10.0",
-    "ssh2": "^0.8.5"
+    "ssh2": "^1.4.0"
   }
 }
